@@ -165,7 +165,7 @@ public class ScoreMenu {
 
         controller.insertStudent(score);
 
-        System.out.printf("\n %s 님의 성정 정보가 저장되었습니다.\n", name);
+        System.out.printf("\n %s 님의 성적 정보가 저장되었습니다.\n", name);
     }
 
     // 숫자입력 메서드

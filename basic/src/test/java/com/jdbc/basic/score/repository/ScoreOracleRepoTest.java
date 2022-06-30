@@ -73,4 +73,17 @@ class ScoreOracleRepoTest {
         Score score = repository.findOne(4);
         assertNull(score);
     }
+
+    @Test
+    @DisplayName("전체 성적 정보를 조회해야 한다.")
+    void findAllTest() {
+
+        Map<Integer, Score> scoreMap = repository.findAll();
+        for (Integer stuNum : scoreMap.keySet()) {
+            System.out.println(scoreMap.get(stuNum));
+        }
+
+        assertEquals(3, scoreMap.size());
+
+    }
 }
