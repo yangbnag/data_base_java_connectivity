@@ -36,6 +36,11 @@ static {
         return incomeList;
     }
 
+    // 특정 행을 추츨
+    public Income findOne(int whereNum) {
+        return incomerepository.findOne(whereNum);
+    }
+
     // 수입 항목별 조회
     public List<Income> findCategory(int whereNum) {
         Map<Integer, Income> incomes = incomerepository.findCategory(whereNum);
@@ -48,7 +53,37 @@ static {
         return incomeList;
     }
 
-    public int calClassSum(){
+    public String calClassSum(){
         return incomerepository.getClassSum();
     }
-}
+
+    public boolean deleteIncome(int whereNume) {return incomerepository.remove(whereNume);}
+
+    // 일련번호를 조회했을때 내역 존재 유무 리턴
+    public boolean hasIncome(int whereNum){
+        return incomerepository.findOne(whereNum) != null;
+    }
+
+    public void insertIncome(Income income, int categoryN) {
+
+        incomeMap.put(income.getInSerial(), income);
+
+        incomerepository.save(income, categoryN);
+
+    }
+
+    public boolean updateIncome (int whereNum, String date, String detail, int amt) {
+        Income target = findOne(whereNum);
+
+        if (target != null) {
+            target.setInDate(date);
+            target.setInDetail(detail);
+            target.setInAmount(amt);
+
+        }
+            return incomerepository.modify(target);
+    }
+
+
+
+}//end class

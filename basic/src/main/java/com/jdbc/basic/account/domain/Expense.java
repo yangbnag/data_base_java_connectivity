@@ -10,15 +10,21 @@ import lombok.*;
 
 public class Expense {
 
-    private String serialNum;
+    private int outSerial;
     private String outDate;
     private String outDetail;
     private int outAmount;
     private String outCategory;
+    private int total;
 
+    public Expense(int outSerial, String outDate, String outDetail, int outAmount) {
+        this.outSerial = outSerial;
+        this.outDate = outDate;
+        this.outDetail = outDetail;
+        this.outAmount = outAmount;
+    }
     @Override
     public String toString() {
-        return  " 일련번호 :" + serialNum + ", 일자 :'" + outDate +
-                " 내역 :" + outDetail + "금액 :" + outAmount ;
+        return  "일련번호 :" + outSerial + " " +"일자 : " + outDate + " " + "내역 :" + outDetail + " " +  "금액 : " + outAmount ;
     }
 }

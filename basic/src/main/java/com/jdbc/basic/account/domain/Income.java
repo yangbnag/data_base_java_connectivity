@@ -15,7 +15,7 @@ public class Income {
     private String inDetail;
     int inAmount;
 
-    private String categoryNum;
+    private int categoryNum;
 
     private int total;
 
