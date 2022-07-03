@@ -29,7 +29,7 @@ class incomeOracleRepoTest {
     @DisplayName("월급 카테고리 내역을 출력한다.")
     void findCategoryTest(){
 
-        Map<Integer, Income> incomeMap = incomeRepository.findCategory(1);
+        Map<Integer, Income> incomeMap = incomeRepository.findCategory(2);
         for (Integer serialNum : incomeMap.keySet()) {
             System.out.println(incomeMap.get(serialNum));
         }

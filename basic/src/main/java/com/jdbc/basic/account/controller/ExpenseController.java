@@ -25,6 +25,7 @@ public class ExpenseController {
         expenseMap = new HashMap<>();
     }
 
+
     //지출 내역 전체 조회
     public List<Expense> findAllExpense(){
         Map<Integer, Expense> expenses = expenseRepository.findAll();
@@ -43,10 +44,48 @@ public class ExpenseController {
         expenseMap = expenses;
 
         List<Expense> expenseList = new ArrayList<>();
-        for (Expense e : expenseList) {
-            expenseList.add(expenseMap.get(e));
+        for (Integer integer : expenses.keySet()) {
+            expenseList.add(expenseMap.get(integer));
         }
         return expenseList;
     }
+
+    public String calClassSum(){
+        return expenseRepository.getClassSum();
+    }
+
+    public boolean deleteExpense (int whereNum){
+        return expenseRepository.remove(whereNum);
+    }
+
+    // 특정 행을 추츨
+    public Expense findOne(int whereNum) {
+        return expenseRepository.findOne(whereNum);
+    }
+    public boolean hasExpense(int whereNum) {
+        return  expenseRepository.findOne(whereNum) != null;
+    }
+
+    public void insertExpense(Expense expense, int categoryN) {
+
+        expenseMap.put(expense.getOutSerial(), expense);
+
+        expenseRepository.save(expense, categoryN);
+
+    }
+
+    public boolean updateExpense (int whereNum, String date, String detail, int amt) {
+        Expense target =findOne(whereNum);
+
+        if (target != null) {
+            target.setOutDate(date);
+            target.setOutDetail(detail);
+            target.setOutAmount(amt);
+
+        }
+        return expenseRepository.modify(target);
+    }
+
+
 
 }

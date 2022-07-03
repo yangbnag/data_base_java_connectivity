@@ -16,8 +16,6 @@ import java.util.Map;
 // Oracle DBMS에 가계부의 수입 정보를 CRUD하는 클래스
 public class IncomeOracleRepo implements IncomeRepository {
 
-    // 카테고리 출력
-
 
     //수입내역 전체 조회
     @Override
@@ -175,7 +173,6 @@ public class IncomeOracleRepo implements IncomeRepository {
             e.printStackTrace();
             return false;
         }
-
     }
 
     @Override

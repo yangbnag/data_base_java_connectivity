@@ -57,7 +57,7 @@ static {
         return incomerepository.getClassSum();
     }
 
-    public boolean deleteIncome(int whereNume) {return incomerepository.remove(whereNume);}
+    public boolean deleteIncome(int whereNum) {return incomerepository.remove(whereNum);}
 
     // 일련번호를 조회했을때 내역 존재 유무 리턴
     public boolean hasIncome(int whereNum){

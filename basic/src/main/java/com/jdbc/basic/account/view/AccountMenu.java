@@ -62,7 +62,8 @@ public class AccountMenu {
             System.out.println("# 1. 지출 내역 전체 조회");
             System.out.println("# 2. 지출 항목별 조회");
             System.out.println("# 3. 지출 정보 입력");
-            System.out.println("# 4. 지출 정보 삭제");
+            System.out.println("# 4. 지출 정보 수정");
+            System.out.println("# 5. 지출 정보 삭제");
             System.out.println("# 9. 끝내기");
 
             int menu = inputN("\n메뉴입력 : ");
@@ -77,10 +78,13 @@ public class AccountMenu {
                     break;
 
                 case 3:
-
+                    exInsertMenu();
                     break;
                 case 4:
-
+                    exModifyMenu();
+                    break;
+                case 5:
+                    exRemoveExpense();
                     break;
 
                 case 9:
@@ -92,6 +96,77 @@ public class AccountMenu {
             }
         }
 
+    }
+
+
+
+    // 2-4번 메뉴
+    private void exModifyMenu () {
+        System.out.println("\n 수정할 지출내역의 일련번호를 입력하세요!");
+        int whereNum = inputN(">>>>");
+
+        if (expenseController.hasExpense(whereNum)) {
+
+            System.out.println("\n# 수정할 내역의 항목을 입력하세요.\n");
+            sc.nextLine();
+            String date = inputSt("날짜");
+            String detail = inputSt("상세내역");
+            int amt = inputN("금액");
+
+            boolean flag = expenseController.updateExpense(whereNum, date, detail, amt);
+
+            if (flag) {
+                System.out.println("#수정이 완료되었습니다.");
+            } else {
+                System.out.println("수정이 실패했습니다.");
+            }
+
+        } else {
+            System.out.println("\n# 해당 지출 내역이 존재하지 않습니다.");
+
+        }
+    }
+
+    // 2-3번 메뉴
+    public void exInsertMenu () {
+        System.out.println("\n 지출 내역을 입력하세요. \n 먼저 카테고리 번호를 선택해주세요 \n[1번 : 식비 // 2번 : 식재료 // 3번 : 외식비 // 4번 : 공과금 // 5번 : 쇼핑]\n");
+        int caNum = inputN("카테고리 번호");
+        sc.nextLine();
+
+        String date = inputSt("일자");
+        String detail = inputSt(" 상세내역 ");
+        int amt = inputN("금액");
+
+        Expense expense = new Expense();
+
+        expense.setOutDate(date);
+        expense.setOutDetail(detail);
+        expense.setOutAmount(amt);
+
+
+        expenseController.insertExpense(expense, caNum);
+
+        System.out.println("\n 지출 내역이 입력 되었습니다.");
+
+    }
+
+    // 2-5번
+    private void exRemoveExpense() {
+        System.out.println("#삭제하실 지출내역의 일련번호를 입력하세요.");
+        int whereNum = inputN(">>>");
+
+        if (expenseController.hasExpense(whereNum)) {
+
+            boolean flag = expenseController.deleteExpense(whereNum);
+            if (flag) {
+                System.out.println("#삭제가 완료되었습니다.");
+            } else {
+                System.out.println("#삭제에 실패했습니다.");
+            }
+
+        } else {
+            System.out.println("해당 내역은 존재하지 않습니다.");
+        }
     }
 
     // 2-2번
@@ -107,9 +182,9 @@ public class AccountMenu {
         } else if (whereNum == 3) {
             category = "외식비";
         }else if (whereNum == 4) {
-            category = "공과금";
-        }else if (whereNum == 5) {
             category = "쇼핑";
+        }else if (whereNum == 5) {
+            category = "공과금";
         }
         else {
             System.out.println("카테고리 번호를 다시 확인해주세요.");
@@ -118,7 +193,7 @@ public class AccountMenu {
 
         List<Expense> expenses = expenseController.findCategory(whereNum);
 
-        System.out.printf("\n=============== %s 카테고리 수입 금액 ================\n"
+        System.out.printf("\n=============== %s 카테고리 지출 내역 ================\n"
                 , category);
         System.out.printf("%5s %8s %13s %8s\n"
                 , "일련번호", "일자", "상세내역", "금액");
@@ -129,6 +204,7 @@ public class AccountMenu {
                     e.getOutSerial(), e.getOutDate(), e.getOutDetail()
                     , e.getOutAmount());
         }
+        System.out.println();
 
 
     }
@@ -137,8 +213,8 @@ public class AccountMenu {
     private void exFindAllMenu() {
         List<Expense> expense = expenseController.findAllExpense();
 
-        System.out.printf("\n=============== 총 수입 금액 ( 금액 : %d) ================\n",
-                incomeController.calClassSum());
+        System.out.printf("\n=============== 총 지출 금액 ( 금액 : %s) ================\n",
+                expenseController.calClassSum());
         System.out.printf("%5s %8s %13s %8s\n"
                 , "일련번호", "일자", "상세내역", "금액");
         System.out.println("----------------------------------------------");
@@ -149,6 +225,7 @@ public class AccountMenu {
                     , e.getOutAmount());
 
         }
+        System.out.println();
     }
 
 
@@ -289,13 +366,14 @@ public class AccountMenu {
                         i.getInSerial(), i.getInDate(), i.getInDetail()
                         , i.getInAmount());
             }
+            System.out.println();
         }
 
         // 1-1번 메뉴
         private void inFindAllMenu () {
             List<Income> incomes = incomeController.findAllIncome();
 
-            System.out.printf("\n=============== 총 수입 금액 ( 금액 : %d) ================\n",
+            System.out.printf("\n=============== 총 수입 금액 ( 금액 : %s) ================\n",
                     incomeController.calClassSum());
             System.out.printf("%5s %8s %13s %8s\n"
                     , "일련번호", "일자", "상세내역", "금액");
@@ -306,6 +384,7 @@ public class AccountMenu {
                         i.getInSerial(), i.getInDate(), i.getInDetail()
                         , i.getInAmount());
             }
+            System.out.println();
         }
 
 

@@ -16,7 +16,7 @@ import java.util.Map;
 public class ExpenseOracleRepo implements ExpenseRepository {
 
 
-    //수입내역 전체 조회
+    //지출내역 전체 조회
     @Override
     public Map<Integer, Expense> findAll() {
 
@@ -48,8 +48,24 @@ public class ExpenseOracleRepo implements ExpenseRepository {
     }
 
     @Override
-    public int getClassSum() {
-        return 0;
+    public String getClassSum() {
+
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT TO_CHAR(SUM(out_amt),'L999,999,999') AS amt_cls\n")
+                .append("FROM expense");
+
+        try (Connection conn = Connect.makeConnection()) {
+            PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                return rs.getString("amt_cls").trim();
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Override
@@ -61,7 +77,7 @@ public class ExpenseOracleRepo implements ExpenseRepository {
                 " A.out_serial_nm, TO_CHAR(A.out_date, 'yy-mm-dd') out_date, A.out_detail, A.out_amt " +
                 " FROM expense A, expense_category B" +
                 " WHERE a.category_num = b.out_ca_serial_nm" +
-                " AND b.out_category_num = ? ";
+                " AND b.out_ca_serial_nm = ? ";
 
         try(Connection conn = Connect.makeConnection()){
 
@@ -92,22 +108,128 @@ public class ExpenseOracleRepo implements ExpenseRepository {
 
     @Override
     public boolean remove(int whereNum) {
-        return false;
+        String sql = "DELETE FROM expense WHERE out_serial_nm = ?";
+
+        try (Connection conn = Connect.makeConnection()) {
+
+            conn.setAutoCommit(false); // 자동 커밋 설정 끄기
+
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, whereNum);
+
+            int result = pstmt.executeUpdate();
+
+            if (result != 0) {
+                conn.commit(); // 커밋 완료
+                return true;
+            } else {
+                conn.rollback(); // 수정 실패 롤백
+                return false;
+            }
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+
     }
 
     @Override
-    public Income findOne(int whereNum) {
-        return null;
+    public Expense findOne(int whereNum) {
+        String sql = "SELECT * FROM expense A WHERE out_serial_nm = ?";
+
+        try (Connection conn = Connect.makeConnection()) {
+
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+
+            pstmt.setInt(1, whereNum);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+
+                Expense e = new Expense(
+
+                        rs.getInt("out_serial_nm")
+                        , rs.getString("out_date")
+                        , rs.getString("out_detail")
+                        , rs.getInt("out_amt")
+                );
+                return e;
+            }
+            return null;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
     }
 
     @Override
     public boolean save(Expense expense, int categoryN) {
-        return false;
+        String sql = "INSERT INTO expense (out_serial_nm, out_date, out_detail, out_amt, category_num) \n" +
+                "VALUES (seq_expense.nextval, ?, ?, ?, ?)";
+
+        try (Connection conn = Connect.makeConnection()) {
+
+            conn.setAutoCommit(false);
+
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+
+            pstmt.setString(1, expense.getOutDate());
+            pstmt.setString(2, expense.getOutDetail());
+            pstmt.setInt(3, expense.getOutAmount());
+            pstmt.setInt(4, categoryN);
+
+            int result = pstmt.executeUpdate();
+
+            if (result != 0) {
+                conn.commit();
+                return true;
+            } else {
+                conn.rollback();
+                return false;
+            }
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     @Override
     public boolean modify(Expense expense) {
-        return false;
+        String sql = "UPDATE expense SET " +
+                "out_date = ?, " +
+                "out_detail = ?," +
+                "out_amt = ? " +
+                "WHERE out_serial_nm = ?";
+
+        try (Connection conn = Connect.makeConnection()) {
+
+            conn.setAutoCommit(false); // 자동커밋 설정 끄기
+
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+
+            pstmt.setString(1, expense.getOutDate());
+            pstmt.setString(2, expense.getOutDetail());
+            pstmt.setInt(3, expense.getOutAmount());
+            pstmt.setInt(4,expense.getOutSerial());
+
+            int result = pstmt.executeUpdate();
+
+            if(result != 0) {
+                conn.commit();
+                return true;
+            } else {
+                conn.rollback();
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 } // end class
 
