@@ -245,11 +245,9 @@ public class AccountMenu {
                     case 1:
                         inFindAllMenu();
                         break;
-
                     case 2:
                         inFindCategoryMenu();
                         break;
-
                     case 3:
                         inInsertMenu();
                         break;

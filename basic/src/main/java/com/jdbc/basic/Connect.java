@@ -12,7 +12,7 @@ public class Connect {
 
     // 내가 사용할 데이터베이스가 어느 컴퓨터에 있는지 알려줘야 함.
     // 데이터 베이스의 위치정보(DB URL) - DB회사마다 패턴이 다름
-    private final static String URL = "jdbc:oracle:thin:@localhost:1521:XE"; // 오라클에 DB URL 패턴을 확인 [찾아봐야함. 인터넷]
+    private final static String URL = "jdbc:oracle:thin:@192.168.25.18:1521:XE"; // 오라클에 DB URL 패턴을 확인 [찾아봐야함. 인터넷]
     // hr/hr : 계정명 / 계정 비밀번호 //localhost : 내 컴퓨터의 IP // 포트주소
     // localhost 데이터베이스가 클라우드에 있으면 클라우드 주소를 적어야 함.
 
