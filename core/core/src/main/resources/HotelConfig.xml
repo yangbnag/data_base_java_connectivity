@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- id는 빈 이름 지정  class속성에는 생성할 객체의 풀 패키지경로 -->
+    <bean id="c" class="com.spring.core.chap02.JuanChef" />
+
+    <bean id="sc" class="com.spring.core.chap02.SushiCourse" />
+    <bean id="fc" class="com.spring.core.chap02.FrenchCourse" />
+
+    <bean id="res" class="com.spring.core.chap02.WesternRestaurant">
+        <!--   setter 주입 태그 name속성에는 필드명, ref에는 참조할 빈의 아이디  -->
+        <property name="chef" ref="c" />
+        <property name="course" ref="fc" />
+    </bean>
+
+    <bean id="hotel" class="com.spring.core.chap02.Hotel">
+        <!--          생성자 주입 태그      -->
+        <!--        name에는 생성자 매개변수명, ref는 주입할 빈의 아이디   -->
+
+        <constructor-arg name="restaurant" ref="res" />
+        <constructor-arg name="chef" ref="c" />
+    </bean>
+
+</beans>

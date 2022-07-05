@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- id는 빈 이름 지정  class속성에는 생성할 객체의 풀 패키지경로 -->
+    <bean id="moniter" class="com.spring.core.chap02.computer.LgMonitor" />
+    <bean id="mouse" class="com.spring.core.chap02.computer.LogitecMouse" />
+    <bean id="keyboard" class="com.spring.core.chap02.computer.SamsungKeyboard" />
+
+
+    <bean id="computer" class="com.spring.core.chap02.computer.Computer">
+        <!--          생성자 주입 태그      -->
+        <!--        name에는 생성자 매개변수명, ref는 주입할 빈의 아이디   -->
+
+        <constructor-arg name="keyboard" ref="keyboard" />
+        <constructor-arg name="mouse" ref="mouse" />
+        <constructor-arg name="monitor" ref="moniter" />
+    </bean>
+
+</beans>
