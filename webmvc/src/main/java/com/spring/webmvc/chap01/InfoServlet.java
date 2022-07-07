@@ -25,7 +25,7 @@ public class InfoServlet extends HttpServlet { //HttpServlet 상속 받아야 �
     // 서블릿 하기 위해서는 메서드 오버라이드 필요함.
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        System.out.println("info request!!");
+        System.out.println("info 요청이 들어옴!!");
 
         // 요청 정보를 받은 후 응답을 해주려고 한다.
         Double height = Double.parseDouble(req.getParameter("height"));
