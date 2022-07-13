@@ -2,12 +2,9 @@ package com.spring.webmvc.springmvc.chap02.repository;
 
 import com.spring.webmvc.springmvc.chap02.domain.Score;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import java.sql.ResultSet;
 import java.util.List;
 
 @Repository
@@ -63,5 +60,23 @@ public class ScoreRepositorylmpl implements ScoreRepository {
     public boolean remove(int stuNum) {
         String sql = "DELETE FROM tbl_score WHERE stu_num = ?";
         return template.update(sql, stuNum) == 1;
+    }
+
+    @Override
+    public List<Score> findFirst() {
+        String sql = "SELECT *\n" +
+                "  FROM tbl_score \n" +
+                "  WHERE average = (SELECT MAX(average) from tbl_score)";
+
+        return template.query(sql, (rs, rowNum) -> new Score(rs));
+    }
+
+    @Override
+    public List<Score> findlast() {
+        String sql = "SELECT *\n" +
+                "  FROM tbl_score \n" +
+                "  WHERE average = (SELECT MIN(average) from tbl_score)";
+
+        return template.query(sql, (rs, rowNum) -> new Score(rs));
     }
 }

@@ -32,11 +32,14 @@ public class ScoreController {
         List<Score> scoreList = repository.findAll();
         model.addAttribute("scores",scoreList);
 
-        Score firstStu;
-        Score lastStu;
-        for (Score score : scoreList) {
+        // jsp 에게 1등인 학생의 정보를 전달
+        List<Score> firstScoreList = repository.findFirst();
+        model.addAttribute("firstScores",firstScoreList);
 
-        }
+        // jsp 에게 꼴등인 학생의 정보를 전달
+        List<Score> lastScoreList = repository.findlast();
+        model.addAttribute("lastScores",lastScoreList);
+
 
         return "chap02/score-list";
     }

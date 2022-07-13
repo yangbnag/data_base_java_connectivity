@@ -57,6 +57,13 @@
             padding: 200px 50px 100px;
             font-size: 1.5em;
         }
+
+        .first-stu {
+            background: white;
+            border: solid 2px black;
+        }
+
+
     </style>
 </head>
 
@@ -89,7 +96,18 @@
             <hr>
 
             <ul class="score-list">
-                <li>총 학생 수: ${scores.size()}명 #1등 : ${} #꼴등 : ${} </li>
+                <li>총 학생 수: ${scores.size()}명</li>
+                
+                <c:forEach var = "f" items = "${firstScores}">
+                <li class="fiast-stu">
+                    #1등 : ${f.name}</li>
+                </c:forEach>>
+
+                <c:forEach var = "l" items = "${lastScores}">
+                    <li class="last-stu">#꼴등 : ${l.name}</li>
+                </c:forEach>
+                
+                  
 
                 <c:forEach var="s" items="${scores}">
                     <li>

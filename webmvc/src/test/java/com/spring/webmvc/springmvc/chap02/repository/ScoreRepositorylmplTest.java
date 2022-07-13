@@ -21,7 +21,7 @@ class ScoreRepositorylmplTest {
     @Test
     @DisplayName("점수 정보가 데이터베이스 테이블에 삽입 되어야 한다.")
     void saveTest() {
-        Score s = new Score("냠냠이", 100, 88, 12);
+        Score s = new Score("뚱뚱이", 88, 68, 62);
         boolean result = repository.save(s);
 
         assertTrue(result);
@@ -59,5 +59,33 @@ class ScoreRepositorylmplTest {
         System.out.println(score);
 
         assertEquals("냠냠이", score.getName());
+    }
+
+    @Test
+    @DisplayName("1등인 학생의 정보를 조회해야 한다.")
+    void findFirstTest(){
+        List<Score> first = repository.findFirst();
+
+        for (Score score : first) {
+            System.out.println(score);
+            System.out.println(score.getName());
+        }
+
+
+    }
+
+    @Test
+    @DisplayName("꼴등인 학생의 정보를 조회해야 한다.")
+    void findLastTest(){
+        List<Score> last = repository.findlast();
+
+        for (Score score : last) {
+            System.out.println(score);
+            System.out.println(score.getName());
+        }
+
+
+
+
     }
 }

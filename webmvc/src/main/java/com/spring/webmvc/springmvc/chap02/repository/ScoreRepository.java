@@ -19,6 +19,12 @@ public interface ScoreRepository {
     // 점수 정보 삭제
     boolean remove(int stuNum);
 
+    // 평균 1등 정보 구하기
+    List<Score> findFirst();
+
+    // 평균 꼴등 정보 구하기
+    List<Score> findlast();
+
 
 
 
