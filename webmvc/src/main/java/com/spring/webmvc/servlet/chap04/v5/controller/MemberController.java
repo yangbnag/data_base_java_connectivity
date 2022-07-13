@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 
 @RequestMapping("/mvc/v5/*")
-@Controller
+//@Controller
 public class MemberController {
 
     private final MemberRepository repository; // MemberController와 MemberReposiotry는 의존관계
 
-    @Autowired // 주입해주세요.
+//    @Autowired // 주입해주세요.
     public MemberController(MemberRepository repository) {
         this.repository = repository;
     }

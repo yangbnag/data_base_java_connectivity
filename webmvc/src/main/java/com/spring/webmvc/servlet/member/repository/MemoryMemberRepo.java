@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Repository // 빈 등록
+//@Repository // 빈 등록
 public class MemoryMemberRepo implements MemberRepository{
 
     // 회원 정보를 저장할 메모리 저장소
