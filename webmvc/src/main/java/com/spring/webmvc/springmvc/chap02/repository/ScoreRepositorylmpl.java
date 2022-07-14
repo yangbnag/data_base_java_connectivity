@@ -30,8 +30,20 @@ public class ScoreRepositorylmpl implements ScoreRepository {
     }
 
     @Override
-    public List<Score> findAll() {
-        String sql = "SELECT * FROM tbl_score ORDER BY average DESC";
+    public List<Score> findAll(String sort) {
+        StringBuilder sql = new StringBuilder("SELECT * FROM tbl_score");
+
+        switch (sort) {
+            case "num":
+                sql.append(" ORDER BY stu_num");
+                break;
+            case "name":
+                sql.append(" ORDER BY stu_name");
+                break;
+            case "average":
+                sql.append(" ORDER BY average");
+                break;
+        }
         // SELECT문의 경우는 query()
 //        return template.query(sql, new ScoreRowMapper()); // 1번 구현체 클래스 만들기
 
@@ -43,7 +55,7 @@ public class ScoreRepositorylmpl implements ScoreRepository {
             }
         });
          */
-        return template.query(sql, (rs, rowNum) -> new Score(rs)); // 3번 람다 활용
+        return template.query(sql.toString(), (rs, rowNum) -> new Score(rs)); // 3번 람다 활용
     }
 
 

@@ -45,8 +45,8 @@ class ScoreRepositorylmplTest {
 
     @Test
     @DisplayName("모든 점수 정보를 조회해야 한다.")
-    void findAllTest(){
-        List<Score> scoreList = repository.findAll();
+    void findAllTest(String sort){
+        List<Score> scoreList = repository.findAll(sort);
 
         scoreList.forEach(s -> System.out.println(s)); // iter 문
     }
