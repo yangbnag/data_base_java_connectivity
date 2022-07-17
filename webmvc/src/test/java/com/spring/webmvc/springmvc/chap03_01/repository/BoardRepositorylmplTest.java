@@ -1,3 +1,4 @@
+/*
 package com.spring.webmvc.springmvc.chap03_01.repository;
 
 import com.spring.webmvc.springmvc.chap03_01.domain.Board;
@@ -66,4 +67,4 @@ class BoardRepositorylmplTest {
 
     }
 
-}
+}*/

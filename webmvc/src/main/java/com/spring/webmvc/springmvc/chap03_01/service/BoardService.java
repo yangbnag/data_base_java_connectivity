@@ -1,3 +1,4 @@
+/*
 package com.spring.webmvc.springmvc.chap03_01.service;
 
 import com.spring.webmvc.springmvc.chap03_01.domain.Board;
@@ -43,3 +44,4 @@ public class BoardService {
     }
 
 }
+*/

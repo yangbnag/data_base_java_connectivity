@@ -1,3 +1,4 @@
+/*
 package com.spring.webmvc.springmvc.chap03_01.domain;
 
 import lombok.Getter;
@@ -39,3 +40,4 @@ public class Board {
 
     }
 }
+*/

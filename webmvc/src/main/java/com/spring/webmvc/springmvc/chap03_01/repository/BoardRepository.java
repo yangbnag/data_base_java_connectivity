@@ -1,3 +1,4 @@
+/*
 package com.spring.webmvc.springmvc.chap03_01.repository;
 
 import com.spring.webmvc.springmvc.chap03_01.domain.Board;
@@ -22,3 +23,4 @@ public interface BoardRepository {
     boolean update(String writer, String title, String content, int boardNo);
 
 }
+*/

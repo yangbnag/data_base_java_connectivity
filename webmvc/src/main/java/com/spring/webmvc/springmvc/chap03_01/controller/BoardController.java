@@ -1,3 +1,4 @@
+/*
 package com.spring.webmvc.springmvc.chap03_01.controller;
 
 import com.spring.webmvc.servlet.chap04.ModelAndView;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -71,21 +73,33 @@ public class BoardController {
 
     }
 
-    // ### 보류 ### 게시글 수정화면요청
+    // 게시글 수정화면요청
     @GetMapping("/board/modify")
-    public String modify(int boardNo) {
+    public String modify(@RequestParam int boardNo, Model model) {
         log.info("/board/modify GET 요청 !! -");
+
+
+        Board b = service.detailService(boardNo);
+        model.addAttribute("b",b);
+
+        log.info("게시물 정보[ ]",b);
+        log.info("boardNo = ", boardNo);
+
 
         return "chap03/board-modify";
     }
 
-    // ### 보류 #### 게시글 수정요청
+    // 게시글 수정요청
     @PostMapping("/board/modify")
     public String update(String writer, String title, String content, int boardNo) {
         log.info("/board/modify POST 요청!! -" + writer + title + content + boardNo);
+        Board b = service.detailService(boardNo);
+        int bnum = b.getBoardNo();
+        log.info(b.getBoardNo());
 
-        return service.updateService(writer, title, content, boardNo) ? "redirect:/board/content" : "redirect:/";
+
+        return service.updateService(writer, title, content, boardNo) ? "redirect:/board/list" : "redirect:/";
     }
 
-
 }
+*/

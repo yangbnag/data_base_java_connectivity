@@ -1,3 +1,4 @@
+/*
 package com.spring.webmvc.springmvc.chap03_01.repository;
 
 import com.spring.webmvc.springmvc.chap02.domain.Score;
@@ -56,3 +57,4 @@ public class BoardRepositorylmpl implements BoardRepository {
         return template.update(sql,writer, title, content, boardNo) == 1;
     }
 }
+*/

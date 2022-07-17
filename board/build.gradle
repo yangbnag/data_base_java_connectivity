@@ -1,0 +1,40 @@
+plugins {
+	id 'org.springframework.boot' version '2.7.1'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+}
+
+group = 'boardproject'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	//jsp 라이브러리 추가
+	implementation 'javax.servlet:jstl'
+	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
+
+	// 오라클 라이브러리
+	implementation fileTree(dir: '/src/main/webapp/WEB-INF/lib', include: ['*.jar'])
+
+	//spring jdbc 라이브러리
+	implementation "org.springframework.boot:spring-boot-starter-jdbc"
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
