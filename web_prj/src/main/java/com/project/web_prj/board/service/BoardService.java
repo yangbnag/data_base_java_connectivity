@@ -49,17 +49,13 @@ public class BoardService {
 
     //시간 포맷팅처리
     private void convertDateFormat(Board b) {
-
             Date date = b.getRegDate();
             SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd a hh:mm");// 패턴을 써주면 날짜를 원하는 형태로 바꿔준다.
             b.setPrettierDate(sdf.format(date));
-
     }
 
     //글제목 줄임처리
     private void substringTitle(Board b) {
-
-
             // 만약에 글제목이 5글자 이상이라면
             // 5글자만 보여주고 나머지는 ...처리
 
@@ -70,7 +66,6 @@ public class BoardService {
             } else {
                 b.setShortTitle(title);
             }
-
     }
 
     // 게시물 상세 조회 요청 중간 처리
