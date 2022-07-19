@@ -2,6 +2,8 @@ package com.project.web_prj.board.controller;
 
 import com.project.web_prj.board.domain.Board;
 import com.project.web_prj.board.service.BoardService;
+import com.project.web_prj.common.paging.Page;
+import com.project.web_prj.common.paging.PageMaker;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
@@ -12,6 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @Log4j2
@@ -23,12 +26,17 @@ public class BoardController {
 
   //게시물 목록 요청
     @GetMapping("/list")
-    public String list(Model model){
-        log.info("controller request /board/list GET!");
-        List<Board> boardList = service.findAllService();
-        log.debug("return data - {}", boardList);
+    public String list(Page page, Model model){
+        log.info("controller request /board/list GET! - page : {}", page);
+        Map<String, Object> boardMap = service.findAllService(page);
+        log.debug("return data - {}", boardMap);
 
-        model.addAttribute("bList", boardList);
+        //페이지 정보 생성
+        PageMaker pm = new PageMaker(page, (Integer) boardMap.get("tc"));
+
+        model.addAttribute("bList", boardMap.get("bList"));
+        model.addAttribute("pm", pm);
+
         return "board/board-list";
     }
 

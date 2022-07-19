@@ -1,6 +1,7 @@
 package com.project.web_prj.board.repository;
 
 import com.project.web_prj.board.domain.Board;
+import com.project.web_prj.common.paging.Page;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -98,4 +99,13 @@ class BoardRepositorylmplTest {
         assertTrue(300 == cnt);
     }
 
+    @Test
+    @DisplayName("원하는 페이지수와 게시물양에 따라 게시물 목록을 조회해야 한다.")
+    void pagingTest(){
+        Page page = new Page(2, 20);
+        List<Board> all = repository.findAll(page);
+        for (Board b : all) {
+            System.out.println(b);
+        }
+    }
 }
