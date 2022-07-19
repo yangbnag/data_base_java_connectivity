@@ -8,5 +8,5 @@ CREATE TABLE tbl_board (
     content CLOB,
     view_cnt NUMBER(10) DEFAULT 0,
     reg_date DATE DEFAULT SYSDATE,
-    CONSTRAINT pk_board PRIMARY KEY (board_no)
+    CONSTRAINT pk_tbl_board PRIMARY KEY (board_no)
 );
