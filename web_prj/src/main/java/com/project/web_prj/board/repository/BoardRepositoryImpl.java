@@ -37,7 +37,7 @@ public class BoardRepositoryImpl implements BoardRepository {
         String sql = "SELECT * FROM tbl_board " +
                 "ORDER BY board_no DESC";
 
-        return template.query(sql,(rs, rowNum) -> new Board(rs));
+        return template.query(sql, (rs, rowNum) -> new Board(rs));
     }
 
     @Override
@@ -45,21 +45,21 @@ public class BoardRepositoryImpl implements BoardRepository {
         String sql = "SELECT * FROM tbl_board " +
                 "WHERE board_no = ?";
 
-        return template.queryForObject(sql, (rs,rn) ->new Board(rs), boardNo);
+        return template.queryForObject(sql, (rs, rn) -> new Board(rs), boardNo);
     }
 
     @Override
     public boolean remove(Long boardNo) {
         String sql = "DELETE FROM tbl_board WHERE board_no = ?";
 
-        return template.update(sql,boardNo) == 1;
+        return template.update(sql, boardNo) == 1;
     }
 
     @Override
     public boolean modify(Board board) {
         String sql = "UPDATE tbl_board " +
-        "SET writer = ?, title = ? , content = ? "+
-        "WHERE board_no = ?";
+                "SET writer = ?, title = ? , content = ? " +
+                "WHERE board_no = ?";
 
         return template.update(sql,
                 board.getWriter(),
@@ -71,6 +71,15 @@ public class BoardRepositoryImpl implements BoardRepository {
     @Override
     public int getTotalCount() {
         String sql = "SELECT COUNT(*) AS cnt FROM tbl_board";
-        return template.queryForObject(sql,Integer.class);
+        return template.queryForObject(sql, Integer.class);
     }
+
+    @Override
+    public void upViewCount(Long boardNo) {
+        String sql = "UPDATE tbl_board SET view_cnt = view_cnt +1 WHERE board_no = ?";
+        template.update(sql,boardNo);
+
+    }
+
+
 }

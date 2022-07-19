@@ -12,7 +12,7 @@
 <div class="wrap">
 
     
-    <%@ include file="./include/head.jsp" %>
+    <%@ include file="./include/header.jsp" %>
     
     <!-- section visual -->
     <section class="visual">
