@@ -34,6 +34,7 @@ public class BoardController {
 
         //페이지 정보 생성
         PageMaker pm = new PageMaker(new Page(search.getPageNum(),search.getAmount()), (Integer) boardMap.get("tc"));
+        log.info("tc{}",boardMap.get("tc"));
 
         model.addAttribute("bList", boardMap.get("bList"));
         model.addAttribute("pm", pm);
