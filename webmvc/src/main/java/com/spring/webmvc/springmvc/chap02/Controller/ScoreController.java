@@ -1,6 +1,7 @@
 package com.spring.webmvc.springmvc.chap02.Controller;
 
 import com.spring.webmvc.springmvc.chap02.domain.Score;
+import com.spring.webmvc.springmvc.chap02.repository.ScoreMapper;
 import com.spring.webmvc.springmvc.chap02.repository.ScoreRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -18,7 +19,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ScoreController {
 
-    private final ScoreRepository repository;
+//    private final ScoreRepository repository;
+    private final ScoreMapper mapper;
 
     //    @Autowired
     //    public ScoreController(ScoreRepository repository) {
@@ -34,28 +36,30 @@ public class ScoreController {
         log.info("/score/list GET 요청!! - param1: {}", sort);
 
         // jsp에게 점수 정보 리스트를 전달해야 함.
-        List<Score> scoreList = repository.findAll(sort);
+//        List<Score> scoreList = repository.findAll(sort);
+        List<Score> scoreList = mapper.findAll(sort);
+
 
         // 이름 마킹 처리
-        for (Score s : scoreList) {
-            String original = s.getName();
-            StringBuilder markName = new StringBuilder(String.valueOf(original.charAt(0)));
-            for (int i = 0; i < original.length() - 1; i++) {
-                markName.append("*");
-            }
-            s.setName(markName.toString());
-        }
+//        for (Score s : scoreList) {
+//            String original = s.getName();
+//            StringBuilder markName = new StringBuilder(String.valueOf(original.charAt(0)));
+//            for (int i = 0; i < original.length() - 1; i++) {
+//                markName.append("*");
+//            }
+//            s.setName(markName.toString());
+//        }
 
 
         model.addAttribute("scores", scoreList);
 
-        // jsp 에게 1등인 학생의 정보를 전달
+        /*// jsp 에게 1등인 학생의 정보를 전달
         List<Score> firstScoreList = repository.findFirst();
         model.addAttribute("firstScores", firstScoreList);
 
         // jsp 에게 꼴등인 학생의 정보를 전달
         List<Score> lastScoreList = repository.findlast();
-        model.addAttribute("lastScores", lastScoreList);
+        model.addAttribute("lastScores", lastScoreList);*/
 
 
         return "chap02/score-list";
@@ -68,7 +72,7 @@ public class ScoreController {
         score.calcGrade();
         log.info("/score/register POST! -" + score);
 
-        if (repository.save(score)) {
+        if (mapper.save(score)) {
             return "redirect:/score/list";
         } else {
             return "redirect:/";
@@ -91,7 +95,7 @@ public class ScoreController {
     public String detail(int stuNum, Model model) {
         log.info("/score/detail GET 요청!! - ");
 
-        Score s = repository.findOne(stuNum);
+        Score s = mapper.findOne(stuNum);
 
         model.addAttribute("s", s);
         //      model.addAttribute("name", s.getName());
@@ -111,7 +115,7 @@ public class ScoreController {
     public String delete(@RequestParam("stuNum") int sn) {
         log.info("score/delete GET - param1: {}", sn);
 
-        return repository.remove(sn) ? "redirect:/score/list" : "redirect:/";
+        return mapper.remove(sn) ? "redirect:/score/list" : "redirect:/";
     }
 
 

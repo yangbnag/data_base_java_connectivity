@@ -35,17 +35,17 @@ class BoardRepositorylmplTest {
         }
     }
 
-    @Test
-    @DisplayName("전체 게시물을 조회 해야 한다.")
-    void findAllTest() {
-        List<Board> boardList = repository.findAll();
-
-        for (Board board : boardList) {
-            System.out.println(board);
-        }
-
-        assertEquals(300, boardList.size());
-    }
+//    @Test
+//    @DisplayName("전체 게시물을 조회 해야 한다.")
+//    void findAllTest() {
+//        List<Board> boardList = repository.findAll();
+//
+//        for (Board board : boardList) {
+//            System.out.println(board);
+//        }
+//
+//        assertEquals(300, boardList.size());
+//    }
 
     @Test
     @DisplayName("특정 게시물을 조회하고")
@@ -108,4 +108,6 @@ class BoardRepositorylmplTest {
             System.out.println(b);
         }
     }
+
+
 }

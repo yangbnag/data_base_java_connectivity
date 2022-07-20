@@ -16,7 +16,7 @@ class BoardServiceTest {
     @Autowired
     BoardService service;
 
-    @Test
+  /*  @Test
     @DisplayName("게시물 전체조회 중간처리 결과가 반환되어야 한다.")
     void findAllServiceTest(){
         List<Board> boardList = service.findAllService();
@@ -24,5 +24,5 @@ class BoardServiceTest {
 
         assertEquals(300,boardList.size());
         assertEquals("제목299",boardList.get(0).getTitle());
-    }
+    }*/
 }

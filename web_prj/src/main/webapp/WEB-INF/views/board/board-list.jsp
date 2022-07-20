@@ -168,7 +168,9 @@
                 let bn = e.target.parentElement.firstElementChild.textContent;
                 console.log('글번호: ' + bn);
 
-                location.href = '/board/content/' + bn;
+                location.href = '/board/content/' + bn 
+                                + "?pageNum=${pm.page.pageNum}"
+                                + "&amount=${pm.page.amount}";
             });
         }
 

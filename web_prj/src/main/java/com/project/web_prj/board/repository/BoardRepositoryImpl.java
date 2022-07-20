@@ -41,7 +41,7 @@ public class BoardRepositoryImpl implements BoardRepository {
         return template.query(sql, (rs, rowNum) -> new Board(rs));
     }*/
 
-    @Override
+   /* @Override
     public List<Board> findAll() {
         String sql = "SELECT *\n" +
                 "FROM (SELECT ROWNUM rn, v_board.*\n" +
@@ -54,7 +54,7 @@ public class BoardRepositoryImpl implements BoardRepository {
                 "WHERE rn BETWEEN 1 AND 10";
 
         return template.query(sql, (rs, rowNum) -> new Board(rs));
-    }
+    }*/
 
     @Override
     public List<Board> findAll(Page page) {

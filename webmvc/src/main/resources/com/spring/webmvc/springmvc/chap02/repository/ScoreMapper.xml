@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<!--mapper 태그는 sql을 매핑할때 사용하는 태그
+    nmaespace 속성에는 사용할 인터페이스의 풀 패키지경로 + 인터페이스이름
+-->
+<mapper namespace="com.spring.webmvc.springmvc.chap02.repository.ScoreMapper">
+
+
+<!--   점수 저장    -->
+    <insert id="save">
+        INSERT INTO tbl_score
+        VALUES (seq_tbl_score.nextval, #{name}, #{kor}, #{eng}, #{math}, #{total}, #{average}, #{grade})
+    </insert>
+
+<!--  점수 정보 삭제  -->
+    <delete id="remove">
+        DELETE FROM tbl_score
+        WHERE stu_num = #{stuNum}
+    </delete>
+    <resultMap id="scoreMap" type="com.spring.webmvc.springmvc.chap02.domain.Score">
+        <result property="stuNum" column="stu_num"></result>
+        <result property="name" column="stu_name"></result>
+
+    </resultMap>
+
+
+<!--  동적 SQL 작성법   -->
+<!-- // 전체 점수 정보 조회    -->
+    <select id="findAll" resultMap="scoreMap">
+        SELECT * FROM tbl_score
+        <if test="sort == 'num'">
+            ORDER BY stu_num
+        </if>
+        <if test="sort == 'name'">
+            ORDER BY stu_name
+        </if>
+        <if test="sort == 'average'">
+            ORDER BY average DESC
+        </if>
+    </select>
+
+
+    <!--  개별 점수 정보 조회  -->
+    <select id="findOne" resultMap="scoreMap">
+        SELECT * FROM tbl_score
+        WHERE stu_num = #{stuNum}
+
+    </select>
+
+
+</mapper>
+
+
+
+
+
+
+
+
