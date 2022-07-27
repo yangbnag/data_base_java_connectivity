@@ -79,11 +79,34 @@
 
         <div class="board-list">
 
+            <!-- 페이지 출력 게시물 설정 -->
             <ul class="amount">
                 <li><a class="btn btn-danger" href="/board/list?amount=10">10</a></li>
                 <li><a class="btn btn-danger" href="/board/list?amount=20">20</a></li>
                 <li><a class="btn btn-danger" href="/board/list?amount=30">30</a></li>
             </ul>
+
+            <!-- 검색창 영역 -->
+            <div class="search">
+
+                <form action="/recboard/reclist" method="get">
+
+                    <select class="form-select" name="type" id="search-type">
+                        <option value="title">제목</option>
+                        <option value="content">내용</option>
+                        <option value="writer">작성자</option>
+                        <option value="tc">제목+내용</option>
+                    </select>
+
+                    <input type="text" class="form-control" name="keyword" value="${s.keyword}">
+
+                    <button class="btn btn-primary" type="submit">
+                        <i class="fas fa-search"></i>
+                    </button>
+
+                </form>
+
+            </div>
 
             <table class="table table-dark table-striped table-hover articles">
                 <tr>

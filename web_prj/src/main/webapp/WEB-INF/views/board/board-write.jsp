@@ -100,6 +100,8 @@
         $toList.onclick = e => {
             location.href = '/board/list';
         };
+
+
     </script>
 
 </body>

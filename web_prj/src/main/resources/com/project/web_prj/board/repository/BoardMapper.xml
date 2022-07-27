@@ -86,8 +86,7 @@
                             <if test="type == 'title'">WHERE title LIKE '%' || #{keyword} || '%'</if>
                             <if test="type == 'writer'">WHERE writer LIKE '%' || #{keyword} || '%'</if>
                             <if test="type == 'content'">WHERE content LIKE '%' || #{keyword} || '%'</if>
-                            <if test="type == 'tc'">
-                                WHERE title LIKE '%' || #{keyword} || '%'
+                            <if test="type == 'tc'">%'
                                 OR content LIKE '%' || #{keyword} || '%'
                             </if>
                             ORDER BY board_no DESC
@@ -99,6 +98,7 @@
 
 </mapper>
 
+<!--        WHERE title LIKE '%' || #{keyword} || '-->
         <!--
         <?xml version="1.0" encoding="UTF-8" ?>
         <!DOCTYPE mapper

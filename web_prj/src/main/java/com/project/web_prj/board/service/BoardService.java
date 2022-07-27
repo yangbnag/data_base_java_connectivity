@@ -89,6 +89,27 @@ public class BoardService {
         for (Board b : boardList) {
             convertDateFormat(b);
             substringTitle(b);
+            checkNewArticle(b);
+        }
+    }
+
+    private void checkNewArticle(Board b) {
+        // 게시물의 작성일자와 현재 시간을 대조
+
+        //게시물의 작성일자 가지고 오기
+        long regDateTime = b.getRegDate().getTime();
+
+        // 현재 시간 얻기
+        long nowTime = System.currentTimeMillis();
+
+        // 현재 시간 - 작성 시간
+        long diff = nowTime - regDateTime;
+
+        // 신규 게시물 제한 시간
+        long limitTime = 60 * 5 * 1000;
+
+        if(diff < limitTime) {
+            b.setNewArticle(true);
         }
     }
 
